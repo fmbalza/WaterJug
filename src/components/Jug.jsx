@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import waterImage from '../assets/water.jpg'
 const Jug = ({ capacity, initialAmount }) => {
   const [amount, setAmount] = useState(initialAmount); 
   console.log(capacity)
@@ -32,10 +32,13 @@ const Jug = ({ capacity, initialAmount }) => {
         }}>
         <div style={{ 
             height: `${waterHeight}%`, 
-            background: 'blue', 
+            borderRadius:'10px',
             position: 'absolute',
             bottom: 0, 
-            width: '100%' 
+            width: '100%', 
+            backgroundSize: 'cover', // Asegúrate de que la imagen cubra todo el div
+            backgroundPosition: 'center', 
+            backgroundImage: `url(${waterImage})`,
           }}></div>
       </div>
  
