@@ -1,122 +1,151 @@
-/* Estilos generales */
+/* General styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-   
-  }
-  
-  .app {
+}
+
+.app {
     text-align: center;
     margin: 20px auto;
-    max-width: 800px; /* Limitar el ancho para una mejor presentación */
-  }
-  
-  /* Contenedor de entradas */
-  .input-container {
+    max-width: 800px; 
+    border: 4px solid rgb(46, 46, 46);
+    border-radius: 25px; /* Limit width for better presentation */
+}
+
+/* Input container */
+.input-container {
     margin-bottom: 20px;
-  }
-  
-  .input-container input {
+}
+
+.input-container input {
     margin: 5px;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px; /* Bordes redondeados para mejorar la estética */
-    transition: border-color 0.3s; /* Suavizar el cambio de color */
-  }
-  
-  .input-container input:focus {
+    border-radius: 4px; /* Rounded borders to improve aesthetics */
+    transition: border-color 0.3s; /* Smooth border color change */
+}
+
+.input-container input:focus {
     outline: none;
-    border-color: #007bff; /* Resaltar el borde al enfocar */
-  }
-  
-  /* Mensajes de error */
-  .error {
+    border-color: #007bff; /* Highlight border when focused */
+}
+
+/* Error messages */
+.error {
     color: red;
     margin-top: 10px;
     font-weight: bold;
-  }
-  
-  /* Estilos de los pasos */
-  .steps {
+}
+
+/* Step styles */
+.steps {
     margin-top: 20px;
-  }
-  
-  .steps table {
+}
+
+.steps table {
     margin: 20px auto;
     border-collapse: collapse;
     width: 100%;
-    max-width: 600px; /* Limitar el ancho de la tabla */
-  }
-  
-  .steps th,
-  .steps td {
+    max-width: 600px; /* Limit table width */
+}
+
+.steps th,
+.steps td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: center;
-  }
-  
-  
-  /* Estilos de los jugs */
-  .jug {
+}
+
+/* Jug styles */
+.jug {
     display: inline-block;
     margin: 20px;
-    width: 150px; /* Ancho fijo para los jugs */
-  }
-  
-  .jug-state {
+    width: 150px; /* Fixed width for jugs */
+}
+
+.jug-state {
     font-weight: bold;
-  }
-  
-  /* Estilos de los pasos individuales (opcional, si decides mantenerlo) */
-  .step {
+}
+
+/* Individual step styles (optional, if you decide to keep it) */
+.step {
     margin: 5px 0;
-  }
+}
 
-
-
-/* CSS */
+/* Button styles */
 .solve {
-  align-items: center;
-  appearance: none;
-  background-color: #FCFCFD;
-  border-radius: 4px;
-  border-width: 0;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
-  box-sizing: border-box;
-  color: #36395A;
-  cursor: pointer;
-  display: inline-flex;
-  font-family: "JetBrains Mono",monospace;
-  height: 48px;
-  justify-content: center;
-  line-height: 1;
-  list-style: none;
-  overflow: hidden;
-  padding-left: 16px;
-  padding-right: 16px;
-  position: relative;
-  text-align: left;
-  text-decoration: none;
-  transition: box-shadow .15s,transform .15s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-  will-change: box-shadow,transform;
-  font-size: 18px;
+    align-items: center;
+    appearance: none;
+    background-color: #313131;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(37, 37, 37, 0.4) 0 2px 4px, rgba(33, 33, 33, 0.3) 0 7px 13px -3px, #1d1d1d 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #ededed;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
 }
 
 .solve:focus {
-  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(255, 255, 255, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
 
 .solve:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
-  transform: translateY(-2px);
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(248, 248, 248, 0.3) 0 7px 13px -3px, #1d1d1d 0 -3px 0 inset;
+    transform: translateY(-2px);
 }
 
 .solve:active {
-  box-shadow: #D6D6E7 0 3px 7px inset;
-  transform: translateY(2px);
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
+}
+
+/* Modal styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: rgb(31, 31, 31);
+    padding: 20px;
+    border-radius: 8px;
+    width: 500px;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    font-size: 16px;
+    cursor: pointer;
 }

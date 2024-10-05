@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
 const Jug = ({ capacity, initialAmount }) => {
-  const [amount, setAmount] = useState(initialAmount); // Estado local para el amount
+  const [amount, setAmount] = useState(initialAmount); 
   console.log(capacity)
-  // Efecto para actualizar el amount cuando cambie el prop initialAmount
+
   useEffect(() => {
     setAmount(initialAmount);
-  }, [initialAmount]); // Dependencia en initialAmount
+  }, [initialAmount]); 
 
   const waterHeight =  (amount / capacity) * 100;
   // console  store+78480
-  console.log('amount:',amount)
-  console.log('capacity:',capacity)
-  console.log('waterHeight:',waterHeight)
+ 
   return (
     <div className="jug">
       <h3>Jug {capacity} Gallons</h3>

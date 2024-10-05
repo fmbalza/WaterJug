@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Jug from './components/jug';
-import Step from './components/Step';
+import Modal from './components/Modal';
 import './App.css';
-import './styles.css'
+import './styles.css';
 
 const App = () => {
   const [x, setX] = useState(0);
@@ -10,89 +10,82 @@ const App = () => {
   const [z, setZ] = useState(0);
   const [steps, setSteps] = useState([]);
   const [error, setError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
 
   const solveWaterJug = () => {
-    if (x <= 0 || y <= 0 || z <= 0 || z > Math.max(x, y)) {
-      setError('No Solution');
+    // Check if any input is empty
+    if (!x || !y || !z) {
+      setError('Please enter all data.');
+      setSteps([]);
+      setIsModalOpen(true);
       return;
     }
+  
+    // Validate that capacities and the desired amount are reasonable
+    if (x <= 0 || y <= 0 || z <= 0 || z > Math.max(x, y)) {
+      setError('No Solution');
+      setSteps([]);
+      setIsModalOpen(true);
+      return;
+    }
+  
     const result = calculateSteps(x, y, z);
     setSteps(result);
     setError(result.length === 0 ? 'No Solution' : '');
+    setIsModalOpen(true);
   };
 
   const calculateSteps = (x, y, z) => {
-    const steps = [];
-    const visited = new Set();
-    const queue = [[0, 0, []]]; // [amount in Jug X, amount in Jug Y, steps]
+    const visited = new Set(); // Set to track visited states
+    const queue = [[0, 0, []]]; // Queue for BFS: [amount in Jug X, amount in Jug Y, steps]
 
     while (queue.length > 0) {
-      const [a, b, currentSteps] = queue.shift();
+      const [a, b, currentSteps] = queue.shift(); // Dequeue the first element
 
+      // If we find the solution
       if (a === z || b === z) {
         return [...currentSteps, `SOLVED: [${a}, ${b}]`];
       }
 
-      // Generar todos los posibles estados
+      // Define possible states
       const states = [
-        [x, b, [...currentSteps, `Fill Jug X: [${x}, ${b}]`]],     // Fill Jug X
-        [a, y, [...currentSteps, `Fill Jug Y: [${a}, ${y}]`]],     // Fill Jug Y
-        [0, b, [...currentSteps, `Empty Jug X: [0, ${b}]`]],       // Empty Jug X
-        [a, 0, [...currentSteps, `Empty Jug Y: [${a}, 0]`]],       // Empty Jug Y
-        [Math.max(0, a - (y - b)), Math.min(y, b + a), [...currentSteps, `Transfer from Jug X to Jug Y: [${Math.max(0, a - (y - b))}, ${Math.min(y, b + a)}]`]], // Transfer X to Y
-        [Math.min(x, a + b), Math.max(0, b - (x - a)), [...currentSteps, `Transfer from Jug Y to Jug X: [${Math.min(x, a + b)}, ${Math.max(0, b - (x - a))}]`]]  // Transfer Y to X
+        [x, b, [...currentSteps, `Fill Jug X: [${x}, ${b}]`]], // Fill Jug X
+        [a, y, [...currentSteps, `Fill Jug Y: [${a}, ${y}]`]], // Fill Jug Y
+        [0, b, [...currentSteps, `Empty Jug X: [0, ${b}]`]],   // Empty Jug X
+        [a, 0, [...currentSteps, `Empty Jug Y: [${a}, 0]`]],   // Empty Jug Y
+        [Math.max(0, a - (y - b)), Math.min(y, b + a), [...currentSteps, `Transfer from Jug X to Jug Y: [${Math.max(0, a - (y - b))}, ${Math.min(y, b + a)}]`]], // Transfer from X to Y
+        [Math.min(x, a + b), Math.max(0, b - (x - a)), [...currentSteps, `Transfer from Jug Y to Jug X: [${Math.min(x, a + b)}, ${Math.max(0, b - (x - a))}]`]]  // Transfer from Y to X
       ];
 
       for (const state of states) {
         const [newA, newB, newSteps] = state;
-        const stateKey = `${newA},${newB}`;
-        if (!visited.has(stateKey)) {
+        const stateKey = `${newA},${newB}`; // Create a unique key for the state
+        if (!visited.has(stateKey)) { // If we haven't visited this state
           visited.add(stateKey);
-          queue.push([newA, newB, newSteps]);
+          queue.push([newA, newB, newSteps]); // Enqueue the new state
         }
       }
     }
 
-    return []; // No solution found
+    return [];
   };
 
   return (
     <div className="app">
-      <h1>Water Jug Challenge</h1>
+      <h1>Water Jug Challenge.</h1>
       <div className="input-container">
         <input type="number" placeholder="Capacity of Jug X" onChange={(e) => setX(parseInt(e.target.value))} />
         <input type="number" placeholder="Capacity of Jug Y" onChange={(e) => setY(parseInt(e.target.value))} />
         <input type="number" placeholder="Desired Amount (Z)" onChange={(e) => setZ(parseInt(e.target.value))} />
-        
       </div>
       <div>
-      <button className='solve' onClick={solveWaterJug}>Solve</button>
+        <button className='solve' onClick={solveWaterJug}>Solve</button>
       </div>
       <Jug capacity={x} initialAmount={z} />
       <Jug capacity={y} initialAmount={z} />
-      {error && <div className="error">{error}</div>}
-         {steps.length > 0 && (
-        <div className="steps">
-          <h2>Steps:</h2>
-          <table>
-            <thead>
-              <tr className="title">
-                <th>Step</th>
-                <th>State</th>
-              </tr>
-            </thead>
-            <tbody>
-              {steps.map((step, index) => (
-                <tr key={index}>
-                  <td>{step.includes('SOLVED') ? 'SOLVED' : step}</td>
-                  <td>{step.includes('[') ? step.split('[')[1].split(']')[0] : ''}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      
+
+      {/* Display the modal with steps */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} steps={steps} />
     </div>
   );
 };
