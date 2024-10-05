@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Jug from './components/jug';
-import Modal from './components/Modal';
+import Jug from './components/Jug.jsx';
+import Modal from './components/Modal.jsx';
 import './App.css';
 import './styles.css';
 
