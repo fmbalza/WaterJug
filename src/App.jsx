@@ -69,7 +69,7 @@ const App = () => {
 
     return [];
   };
-
+  //prueba
   return (
     <div className="app">
       <h1>Water Jug Challenge.</h1>
